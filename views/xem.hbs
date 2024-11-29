@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Xem Map</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <style>
+        #map {
+            height: 90vh;
+            width: 100%;
+        }
+        #controls {
+            position: absolute;
+            top: 80%;
+            right: 50%;
+            z-index: 1000;
+            background: white;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+        #controls button {
+            margin: 5px 0;
+            padding: 5px 10px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <h1 style="display: flex; justify-content: center; margin-bottom: 10px; margin-top: 10px;">GIAO DIỆN NGƯỜI DÙNG</h1>
+      </div>
+    <div id="map"></div>
+    <div id="controls">
+        <button id="viewA">Xem theo Chất lượng mặt đường</button>
+        <button id="viewWaterLevel">Xem theo Mực nước</button>
+    </div>
+
+    <script>
+        const currentUrl = location.protocol + "//" + location.host;
+
+        // Khởi tạo bản đồ
+        const map = L.map('map').setView([15.97385, 108.24931], 24);
+        L.tileLayer(
+            'https://maps.vietmap.vn/api/lm/{z}/{x}/{y}.png?apikey={{apiKey}}'
+        ).addTo(map);
+
+  
+        let lineLayer = L.layerGroup().addTo(map);
+        let markerLayer = L.layerGroup().addTo(map);
+        
+        let currentView = 'a';
+        let hasFirstView = false;
+
+  
+        function getColorBasedOnQuality(value, mode = "a") {
+            if (mode === "a") {
+                if (value >= 0.000005 && value < 0.000009) return "#00FF00";
+                if (value >= 0.000009 && value < 0.000013) return "#FFFF00";
+                if (value >= 0.000013 && value < 0.000017) return "#FF7F00";
+                if (value >= 0.000017 && value < 0.000022) return "#FF4500";
+                if (value >= 0.000022 && value < 0.000027) return "#FF0000";
+                return "#111111";
+            } else if (mode === "waterLevel") {
+                if (value >= 0 && value < 0.5) return "#00FF00";
+                if (value >= 0.5 && value < 1) return "#FFFF00";
+                if (value >= 1 && value < 1.5) return "#FF7F00";
+                if (value >= 1.5 && value < 2) return "#FF4500";
+                if (value >= 2) return "#FF0000";
+                return "#111111";
+            }
+        }
+        
+        const existingMarkers = new Map();
+
+        async function fetchMarkers() {
+            try {
+                const response = await fetch(`${currentUrl}/api/locations`);
+                if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
+
+                const data = await response.json();
+
+                if (!hasFirstView && data.length > 0) {
+                    const firstView = data[0];
+                    map.setView([firstView.latitude, firstView.longitude], 30);
+                    hasFirstView = true;
+                }
+
+                data.forEach((current) => {
+                    const key = `${current.latitude},${current.longitude}`; 
+                    const value = currentView === 'a' ? current.a : current.waterLevel;
+                    const color = getColorBasedOnQuality(value, currentView);
+
+                    if (!existingMarkers.has(key)) {
+                        const marker = L.circleMarker([current.latitude, current.longitude], {
+                            radius: 4,
+                            color: color,
+                            fillColor: color,
+                            fillOpacity: 1,
+                        }).addTo(markerLayer);
+                        marker.bindPopup(
+                            `<b>Chất lượng mặt đường:</b> ${current.a}<br>
+                            <b>Mực nước:</b> ${current.waterLevel}<br>
+                            <b>Ngày:</b> ${current.date}`
+                        );
+
+                        existingMarkers.set(key, marker);
+                    } else {
+                        const marker = existingMarkers.get(key);
+                        marker.setStyle({
+                            radius: 4,
+                            color: color,
+                            fillColor: color,
+                            fillOpacity: 1,
+                        })
+                        marker.setPopupContent(
+                            `<b>Chất lượng mặt đường:</b> ${current.a}<br>
+                            <b>Mực nước:</b> ${current.waterLevel}<br>
+                            <b>Ngày:</b> ${current.date}`
+                        );
+                    }
+                });
+
+                existingMarkers.forEach((marker, key) => {
+                    if (!data.some((current) => `${current.latitude},${current.longitude}` === key)) {
+                        map.removeLayer(marker);
+                        existingMarkers.delete(key);
+                    }
+                });
+
+                lineLayer.clearLayers();
+                {{!-- for (let i = 0; i < data.length - 1; i++) {
+                    const current = data[i];
+                    const next = data[i + 1];
+                    const value = currentView === 'a' ? current.a : current.waterLevel;
+
+                    const color = getColorBasedOnQuality(value, currentView);
+
+                    L.polyline(
+                        [[current.latitude, current.longitude], [next.latitude, next.longitude]],
+                        {
+                            color: color,
+                            weight: 5,
+                            opacity: 1,
+                        }
+                    ).addTo(lineLayer);
+                } --}}
+            } catch (error) {
+                console.error('Lỗi khi lấy dữ liệu:', error);
+            }
+        }
+        document.getElementById('viewA').addEventListener('click', () => {
+            currentView = 'a';
+            fetchMarkers(); 
+        });
+
+        document.getElementById('viewWaterLevel').addEventListener('click', () => {
+            currentView = 'waterLevel';
+            fetchMarkers(); 
+        });
+
+        fetchMarkers();
+        setInterval(fetchMarkers, 100);
+    </script>
+</body>
+</html>

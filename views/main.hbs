@@ -1,0 +1,379 @@
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>Moniro</title>
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+    />
+    <link rel="stylesheet" type="text/css" href="./css/style.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  </head>
+
+  <body>
+    <nav id="sidebar">
+      <ul>
+        <li>
+          <span class="logo">ClearRoad</span>
+          <div id="just-a-div"></div>
+        </li>
+        <li>
+          <a id="connectButton">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M197-197q-54-55-85.5-127.5T80-480q0-84 31.5-156.5T197-763l57 57q-44 44-69 102t-25 124q0 67 25 125t69 101l-57 57Zm113-113q-32-33-51-76.5T240-480q0-51 19-94.5t51-75.5l57 57q-22 22-34.5 51T320-480q0 33 12.5 62t34.5 51l-57 57Zm170-90q-33 0-56.5-23.5T400-480q0-33 23.5-56.5T480-560q33 0 56.5 23.5T560-480q0 33-23.5 56.5T480-400Zm170 90-57-57q22-22 34.5-51t12.5-62q0-33-12.5-62T593-593l57-57q32 32 51 75.5t19 94.5q0 50-19 93.5T650-310Zm113 113-57-57q44-44 69-102t25-124q0-67-25-125t-69-101l57-57q54 54 85.5 126.5T880-480q0 83-31.5 155.5T763-197Z"/></svg>
+            <span>Kết nối Ardunio</span>
+          </a>
+        </li>
+        <li>
+          <a id="disconnectButton">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="m684-389-49-49q22-26 33.5-57t11.5-65q0-40-16-76t-44-64l48-48q38 38 59 86t21 102q0 48-17 91.5T684-389ZM565-508 428-645q12-7 25-11t27-4q42 0 71 29t29 71q0 14-4 27t-11 25Zm215 214-48-48q40-45 60-101.5T812-560q0-66-24.5-127.5T716-796l48-48q55 58 85.5 131T880-560q0 74-25.5 142.5T780-294Zm11 238L520-327v207h-80v-287L280-566v6q0 40 16 76t44 64l-48 48q-38-38-59-86t-21-102q0-17 2-33t7-33l-51-51q-11 29-16.5 58t-5.5 59q0 66 24.5 127.5T244-324l-48 48q-55-58-85.5-131T80-560q0-44 9.5-86.5T118-729l-62-62 56-57 736 736-57 56Z"/></svg>
+            <span>Ngắt kết nối Arduino</span>
+          </a>
+        </li> 
+        <li>
+          <a id="showLinea">
+            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="24px" height="24px"><path d="M 6.8125 11 C 6.417969 11.078125 6.109375 11.386719 6.03125 11.78125 L 0.03125 37.78125 C -0.0351563 38.078125 0.0351563 38.386719 0.222656 38.621094 C 0.414063 38.859375 0.699219 38.996094 1 39 L 49 39 C 49.300781 38.996094 49.585938 38.859375 49.777344 38.621094 C 49.964844 38.386719 50.035156 38.078125 49.96875 37.78125 L 43.96875 11.78125 C 43.867188 11.328125 43.464844 11.003906 43 11 L 7 11 C 6.96875 11 6.9375 11 6.90625 11 C 6.875 11 6.84375 11 6.8125 11 Z M 7.78125 13 L 24 13 L 24 14 L 26 14 L 26 13 L 42.21875 13 L 47.75 37 L 26 37 L 26 34 L 24 34 L 24 37 L 2.25 37 Z M 24 16 L 24 20 L 26 20 L 26 16 Z M 24 22 L 24 26 L 26 26 L 26 22 Z M 24 28 L 24 32 L 26 32 L 26 28 Z"/></svg>
+            <span>Xem mặt đường</span>
+          </a>
+        </li> 
+        <li>
+          <a id="showLineWaterLevel">
+            <svg xmlns="http://www.w3.org/2000/svg"  viewBox="0 0 50 50" width="24px" height="24px"><path d="M 24.90625 0.15625 C 24.863281 0.164063 24.820313 0.175781 24.78125 0.1875 C 24.558594 0.234375 24.363281 0.355469 24.21875 0.53125 C 24.21875 0.53125 20.03125 5.621094 15.84375 12.09375 C 11.65625 18.566406 7.375 26.335938 7.375 32.375 C 7.375 42.09375 15.28125 50 25 50 C 34.71875 50 42.625 42.09375 42.625 32.375 C 42.625 26.335938 38.34375 18.566406 34.15625 12.09375 C 29.96875 5.621094 25.78125 0.53125 25.78125 0.53125 C 25.570313 0.265625 25.242188 0.125 24.90625 0.15625 Z M 25 2.8125 C 25.980469 4.027344 28.976563 7.757813 32.46875 13.15625 C 36.585938 19.519531 40.625 27.335938 40.625 32.375 C 40.625 41.011719 33.636719 48 25 48 C 16.363281 48 9.375 41.011719 9.375 32.375 C 9.375 27.335938 13.414063 19.519531 17.53125 13.15625 C 21.023438 7.757813 24.019531 4.027344 25 2.8125 Z M 24.25 11.125 C 23.996094 11.175781 23.773438 11.320313 23.625 11.53125 C 23.625 11.53125 21.171875 14.6875 18.71875 18.8125 C 16.265625 22.9375 13.75 27.96875 13.75 32.1875 C 13.75 37.484375 16.242188 40.691406 18.71875 42.40625 C 21.195313 44.121094 23.6875 44.46875 23.6875 44.46875 C 24.054688 44.558594 24.4375 44.433594 24.683594 44.148438 C 24.929688 43.863281 24.992188 43.460938 24.847656 43.113281 C 24.703125 42.765625 24.375 42.527344 24 42.5 C 24 42.5 21.945313 42.214844 19.875 40.78125 C 17.804688 39.347656 15.75 36.878906 15.75 32.1875 C 15.75 28.816406 18.054688 23.820313 20.4375 19.8125 C 22.820313 15.804688 25.1875 12.75 25.1875 12.75 C 25.453125 12.429688 25.492188 11.972656 25.285156 11.609375 C 25.074219 11.25 24.664063 11.054688 24.25 11.125 Z"/></svg>
+            <span>Xem mực nước</span>
+          </a>
+        </li>       
+        <li>
+          <p>Nhập ngày</p>
+          <input type="date" id="dateLocation" />
+        </li> 
+        <li>
+          <a id="reportFile">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#e8eaed"><path d="M480-480ZM202-65l-56-57 118-118h-90v-80h226v226h-80v-89L202-65Zm278-15v-80h240v-440H520v-200H240v400h-80v-400q0-33 23.5-56.5T240-880h320l240 240v480q0 33-23.5 56.5T720-80H480Z"/></svg>
+            <span>Xuất Excel</span>
+          </a>
+        </li>
+
+      </ul>
+    </nav>
+    <main>
+      <div>
+        <h1 style="display: flex; justify-content: center; margin-bottom: 10px;">GIAO DIỆN GIÁM SÁT</h1>
+      </div>
+      <div class="container">
+        <div id="map" style="height: 85vh;"></div>
+      </div>
+    </main>
+      
+  <script src="./js/moment.min.js"></script>
+  <script>
+    let currentMode = "a";
+    let list = [];
+    let map;
+    let port;
+    let coordinates = [];
+
+    function getFormattedDate() {
+      const today = new Date();
+      const dd = String(today.getDate()).padStart(2, "0");
+      const mm = String(today.getMonth() + 1).padStart(2, "0");
+      const yyyy = today.getFullYear();
+      return `${dd}-${mm}-${yyyy}`;
+    }
+
+    const today = getFormattedDate();
+    const currentUrl = location.protocol + "//" + location.host;
+
+    async function postData(data) {
+      try {
+        const response = await fetch(`${currentUrl}/api/locations`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(data),
+        });
+        if (!response.ok)
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        return true;
+      } catch (error) {
+        console.error("Fetch error:", error);
+        return false;
+      }
+    }
+
+    function initMap() {
+      map = L.map("map").setView([15.97385, 108.24931], 19);
+      L.tileLayer(
+        `https://maps.vietmap.vn/api/lm/{z}/{x}/{y}.png?apikey={{apiKey}}`,
+        {
+          maxZoom: 18,
+        }
+      ).addTo(map);
+  
+    }
+
+    function addMarker(oData) {
+        const value = currentMode === "a" ? oData.a : oData.waterLevel;
+
+        const color = getColorBasedOnQuality(value, currentMode);
+
+        const marker = L.circleMarker([oData.latitude, oData.longitude], {
+            radius: 4,
+            color: color,
+            fillColor: color,
+            fillOpacity: 1,
+        }).addTo(map);
+
+        marker.bindPopup(`
+          <div>
+            <p style="color: #2D9596;"><strong>Chất lượng mặt đường: ${oData.a}</strong></p>
+            <p style="color: #5FBDFF;"><strong>Mực nước: ${oData.waterLevel}</strong></p>
+          </div>
+        `);
+
+        coordinates.push([oData.longitude, oData.latitude]);
+
+        drawPolyline(coordinates);
+
+        list.push(oData);
+
+        postData({...oData, date: today});
+    }
+
+    function getColorBasedOnQuality(quality, mode= "a") {
+      if (mode === "a") {
+        if (quality >= 0.000005 && quality < 0.000009) return "#00FF00";  // xanh lá
+        if (quality >= 0.000009 && quality < 0.000013) return "#FFFF00";  // xanh d
+        if (quality >= 0.000013 && quality < 0.000017) return "#FF7F00";  // Xanh lá
+        if (quality >= 0.000017 && quality < 0.000022) return "#FF4500";  // Vàng
+        if (quality >= 0.000022 && quality < 0.000027) return "#FF0000";  // Vàng
+        return "#111111";  
+      }else if (mode === "waterLevel") {
+        if (quality >= 0 && quality < 5) return "#00FF00";  // xanh lá
+        if (quality >= 5 && quality < 7) return "#FFFF00";  // xanh d
+        if (quality >= 7 && quality < 10) return "#FF7F00";  // Xanh lá
+        if (quality >= 10 && quality < 15) return "#FF4500";  // Vàng
+        if (quality >= 15 && quality < 25) return "#FF0000";  // Vàng
+        return "#FF0000";  
+      }
+    }
+
+    function drawPolyline(coords) {
+        if (coords.length > 1) {
+          const lastData = list[list.length - 1];
+          const value = currentMode === "a" ? lastData.a : lastData.waterLevel;
+
+          const color = getColorBasedOnQuality(value, currentMode);
+
+          L.polyline(coords, {
+              color: color,
+              weight: 5,
+              opacity: 1,
+          }).addTo(map);
+        }
+    }
+
+    function extractNumericValues(input) {
+      const regex = /[0-9.]+/g;
+      return input.match(regex) || [];
+    }
+
+    function isValidSubArray(subArray) {
+        const [a, longitude, latitude] = subArray.map(Number);
+
+        return (
+            a >= 0 && a <= 1 &&
+            longitude >= -180 && longitude <= 180 && longitude !== 0 &&
+            latitude >= -90 && latitude <= 90 && latitude !== 0
+        );
+    }
+
+    function convertDataToObject(fData) {
+      let [a, longitude, latitude, waterLevel] = fData.map(Number);
+      return {
+        a,
+        longitude,
+        latitude,
+        waterLevel
+      };
+    }
+
+    function someData(data, o) {
+      return data.some(
+        (d) => d.longitude == o.longitude && d.latitude == o.latitude
+      );
+    }
+
+    async function connectArduino() {
+        try {
+            const filters = [{ usbVendorId: 0x2341, usbProductId: 0x0042 }];
+            port = await navigator.serial.requestPort({ filters });
+            await port.open({ baudRate: 9600 });
+
+            document.getElementById("connectButton").disabled = true;
+            document.getElementById("disconnectButton").disabled = false;
+
+            const reader = port.readable.getReader();
+            let buffer = ""; 
+            let numericValues = []; 
+
+            while (true) {
+                const { value, done } = await reader.read();
+                if (done) {
+                    console.log("Kết nối đã đóng.");
+                    break;
+                }
+
+                const text = new TextDecoder().decode(value);
+                buffer += text;
+
+                const lines = buffer.split("\n");
+                buffer = lines.pop();
+                for (const line of lines) {
+                    const values = extractNumericValues(line);
+                    if (values.length > 0) {
+                        numericValues.push(...values.map(Number));
+                    }
+
+                    while (numericValues.length >= 5) {
+                        const chunk = numericValues.slice(0, 5);
+                      
+                        numericValues.splice(0, 5);
+
+                        if (isValidSubArray(chunk)) {
+                            const dataObject = convertDataToObject(chunk);
+                            console.log("Dữ liệu hợp lệ:", dataObject);
+
+                            if (!someData(list, dataObject)) {
+                                list.push(dataObject);
+                                addMarker(dataObject);
+                                map.setView([dataObject.latitude, dataObject.longitude], 19);
+                                await postData({ ...dataObject, date: today });
+                            }
+                        } else {
+                            console.warn("Dữ liệu không hợp lệ:", chunk);
+                        }
+                    }
+                }
+            }
+
+            reader.releaseLock();
+        } catch (error) {
+            console.error("Lỗi:", error);
+        }
+    }
+
+    async function disconnectArduino() {
+      try {
+        if (port) {
+          port.forget();
+          alert("Hủy kết nối thành công!");
+          document.getElementById("connectButton").disabled = false;
+          document.getElementById("disconnectButton").disabled = true;
+        } else {
+          alert("Vui lòng kết nối với thiết bị!");
+        }
+      } catch (error) {
+        alert("Đã xảy ra lỗi!");
+        console.error("Error during disconnection:", error);
+      }
+    }
+
+    function redrawMap() {
+      map.eachLayer((layer) => {
+        if (layer instanceof L.Polyline) {
+          map.removeLayer(layer);
+        }
+      });
+
+      coordinates = [];
+      list.forEach((oData) => {
+        addMarker(oData);
+      });
+    }
+
+    document
+      .getElementById("connectButton")
+      .addEventListener("click", connectArduino);
+    document
+      .getElementById("disconnectButton")
+      .addEventListener("click", disconnectArduino);
+
+    document
+      .getElementById("showLinea")
+      .addEventListener("click", () => {
+        currentMode = "a",
+        redrawMap();
+      });
+
+    document
+      .getElementById("showLineWaterLevel")
+      .addEventListener("click", () => {
+        currentMode = "waterLevel",
+        redrawMap();
+      });
+
+    document
+      .getElementById("reportFile")
+      .addEventListener("click", function () {
+        const dateInput = document.getElementById("dateLocation");
+        const inputValue = dateInput.value;
+
+        if (!inputValue) {
+          alert("Vui lòng nhập ngày");
+          return;
+        }
+
+        const selectedDate = new Date(inputValue);
+        const checkDate = moment(inputValue, "YYYYMMDD");
+        const today = moment();
+
+        if (checkDate.isAfter(today)) {
+          alert("Ngày không thể lớn hơn ngày hiện tại");
+          return;
+        }
+
+        const dd = String(selectedDate.getDate()).padStart(2, "0");
+        const mm = String(selectedDate.getMonth() + 1).padStart(2, "0");
+        const yyyy = selectedDate.getFullYear();
+
+        const formattedDate = `${dd}-${mm}-${yyyy}`;
+        window.location.href = currentUrl + "/bao-cao?date=" + formattedDate;
+      });
+
+      if (!sessionStorage.getItem("isReloaded")) {
+          sessionStorage.setItem("isReloaded", "false");
+      }
+
+      window.addEventListener("beforeunload", async (event) => {
+          if (performance.navigation.type === performance.navigation.TYPE_RELOAD) {
+              sessionStorage.setItem("isReloaded", "true"); // Ghi nhận trạng thái reload
+          } else {
+              sessionStorage.setItem("isReloaded", "false"); // Không phải reload
+          }
+      });
+
+      window.addEventListener("DOMContentLoaded", async () => {
+          if (sessionStorage.getItem("isReloaded") === "true") {
+              try {
+                  // Gửi yêu cầu DELETE để clear data
+                  const response = await fetch(`${currentUrl}/api/clear-data`, {
+                      method: "DELETE",
+                  });
+
+                  if (response.ok) {
+                      console.log("Dữ liệu đã được xóa khỏi MongoDB do reload.");
+                  } else {
+                      console.error("Không thể xóa dữ liệu.");
+                  }
+              } catch (error) {
+                  console.error("Lỗi khi gửi yêu cầu xóa dữ liệu:", error);
+              } finally {
+                  sessionStorage.setItem("isReloaded", "false"); // Reset trạng thái
+              }
+          }
+      });
+    
+    document.addEventListener("DOMContentLoaded", initMap);
+  </script>
+  </body>
+</html>
